@@ -37,9 +37,12 @@
             repo = lock.${key}.original.repo;
           }) (attrNames dependencies);
       in pkgs.writeShellScriptBin "check-versions" ''
+        STATUS=$(git submodule status --recursive);
         ${pkgs.lib.concatMapStringsSep "\n"
-        ({ var, submodule, ... }:
-          "${var}=$(git rev-parse HEAD:${submodule})") deps}
+        ({ name, var, owner, repo, submodule }:
+          "${var}=$(echo \"$STATUS\" | ${pkgs.gawk}/bin/awk '$2 == \"${submodule}\" {gsub(/[\\+,-]/, \"\"); print $1}')\n" ++
+          "echo \"Setting ${name} to 'github:${owner}/${repo}/\${${var}}'\""
+        ) deps}
 
         nix flake lock \
         ${
