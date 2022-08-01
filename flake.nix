@@ -40,7 +40,7 @@
         STATUS=$(git submodule status --recursive);
         ${pkgs.lib.concatMapStringsSep "\n"
         ({ name, var, owner, repo, submodule }:
-          "${var}=$(echo \"$STATUS\" | ${pkgs.gawk}/bin/awk '$2 == \"${submodule}\" {gsub(/[\\+,-]/, \"\"); print $1}')\n" ++
+          "${var}=$(echo \"$STATUS\" | ${pkgs.gawk}/bin/awk '$2 == \"${submodule}\" {gsub(/[\\+,-]/, \"\"); print $1}')\n" +
           "echo \"Setting ${name} to 'github:${owner}/${repo}/\${${var}}'\""
         ) deps}
 
