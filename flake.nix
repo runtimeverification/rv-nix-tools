@@ -1,6 +1,11 @@
 {
   description = "Pure Nix flake utility functions used in other RV repos";
   outputs = { self }: {
+    lib.mkPykAppSrc = {
+      src,
+      cleaner ? ({src} : src)
+    } : src;
+
     lib.check-submodules = pkgs: dependencies:
       let
         hashes = with builtins;
