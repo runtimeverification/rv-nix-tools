@@ -1,7 +1,7 @@
 {
   description = "Pure Nix flake utility functions used in other RV repos";
   outputs = { self }: {
-    lib.mkPykAppSrc = {
+    lib.mkPykAppSrc = pkgs: {
       src,
       cleaner ? ({src} : src)
     } : src;
