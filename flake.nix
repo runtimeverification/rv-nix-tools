@@ -1,6 +1,11 @@
 {
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/e2ffefe304d941bb98989847944f3b58e0adcdd5";
+  };
+
   description = "Pure Nix flake utility functions used in other RV repos";
-  outputs = { self }: {
+
+  outputs = { self, nixpkgs }: {
     lib.mkPykAppSrc = {
       src,
       cleaner ? ({src} : src)
