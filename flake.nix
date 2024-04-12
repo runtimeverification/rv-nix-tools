@@ -7,9 +7,10 @@
 
   outputs = { self, nixpkgs }: {
     lib.mkPykAppSrc = {
+      pkgs,
       src,
       cleaner ? ({src} : src)
-    } : nixpkgs.stdenv.mkDerivation {
+    } : pkgs.stdenv.mkDerivation {
       name = "pyk-app-src";
       src = cleaner { inherit src; };
 
