@@ -4,7 +4,29 @@
   };
 
   description = "Pure Nix flake utility functions used in other RV repos";
+
   outputs = { self, nixpkgs }: {
+    lib.mkPykAppSrc = {
+      pkgs,
+      src,
+      cleaner ? ({src} : src)
+    } : pkgs.stdenv.mkDerivation {
+      name = "pyk-app-src";
+      src = cleaner { inherit src; };
+
+      dontBuild = true;
+
+      patchPhase = ''
+        substituteInPlace pyproject.toml \
+          --replace-fail ', subdirectory = "pyk"' ""
+      '';
+
+      installPhase = ''
+        mkdir -p $out/
+        cp -R * $out/
+      '';
+    };
+
     lib.check-submodules = pkgs: dependencies:
       let
         hashes = with builtins;
