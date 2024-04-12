@@ -9,7 +9,7 @@
     lib.mkPykAppSrc = {
       src,
       cleaner ? ({src} : src)
-    } : nixpkgs.stdenv.mkDerivation {
+    } : stdenv.mkDerivation {
       name = "pyk-app-src";
       src = cleaner { inherit src; };
 
