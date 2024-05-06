@@ -10,18 +10,18 @@
     mkSubdirectoryAppSrc = {
       pkgs,
       src,
-      subdirectory,
+      subdirectories,
       cleaner ? ({src} : src)
     } : pkgs.stdenv.mkDerivation {
-      name = "${subdirectory}-app-src";
+      name = "subdirs-app-src";
       src = cleaner { inherit src; };
 
       dontBuild = true;
 
-      patchPhase = ''
+      patchPhase = pkgs.lib.strings.concatMapStringsSep " " (subdir: ''
         substituteInPlace pyproject.toml \
-          --replace-fail ', subdirectory = "${subdirectory}"' ""
-      '';
+          --replace-fail ', subdirectory = "${subdir}"' ""
+      '') subdirectories;
 
       installPhase = ''
         mkdir -p $out/
@@ -38,7 +38,7 @@
       cleaner ? ({src} : src)
     } : mkSubdirectoryAppSrc {
       inherit pkgs src cleaner;
-      subdirectory = "pyk";
+      subdirectories = [ "pyk" ];
     };
 
     lib.check-submodules = pkgs: dependencies:
