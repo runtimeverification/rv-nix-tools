@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/e2ffefe304d941bb98989847944f3b58e0adcdd5";
+    nixpkgs.url = "github:nixos/nixpkgs/69493a13eaea0dc4682fd07e8a084f17813dbeeb";
   };
 
   description = "Pure Nix flake utility functions used in other RV repos";
