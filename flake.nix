@@ -1,11 +1,11 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/69493a13eaea0dc4682fd07e8a084f17813dbeeb";
+    nixpkgs.url = "github:nixos/nixpkgs/006a5f3ee4e07c33d1253070fd2e9e33bc204f1c";
   };
 
   description = "Pure Nix flake utility functions used in other RV repos";
 
-  outputs = { self, nixpkgs }: 
+  outputs = { self, nixpkgs }:
   let
     mkSubdirectoryAppSrc = {
       pkgs,
